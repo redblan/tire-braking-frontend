@@ -1,0 +1,15 @@
+.card {
+    padding: 8px;
+}
+.textStyle {
+    height:48px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-bottom:12px;
+}
+.cardImage {
+    object-fit: contain;
+}
+.cardButton {
+    width: 100%;
+}

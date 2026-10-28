@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    background: #f0f0f0;
+}
+
+.appShell {
+    max-width: 390px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+}
+
+.appContent {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 64px;
+}
+
+.btn-primary {
+    --bs-btn-bg: #ff6b00;
+    --bs-btn-border-color: #ff6b00;
+    --bs-btn-hover-bg: #e66000;
+    --bs-btn-hover-border-color: #e66000;
+    --bs-btn-active-bg: #cc5500;
+    --bs-btn-active-border-color: #cc5500;
+    --bs-btn-disabled-bg: #ff6b00;
+    --bs-btn-disabled-border-color: #ff6b00;
+}
