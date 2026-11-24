@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# логи скриптов
+tauri_run.log
+
+# служебные скрипты
+.branch-split/
+make_branches.sh
+demo_tauri.sh

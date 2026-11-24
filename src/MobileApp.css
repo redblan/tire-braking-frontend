@@ -29,3 +29,27 @@ body {
     --bs-btn-disabled-bg: #ff6b00;
     --bs-btn-disabled-border-color: #ff6b00;
 }
+
+/* анимация загрузки: закрывает страницу и панель вкладок, пока идёт запрос */
+.appLoader {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 200;
+}
+
+.pagination {
+    --bs-pagination-color: #ff6b00;
+    --bs-pagination-hover-color: #e66000;
+    --bs-pagination-focus-color: #e66000;
+    --bs-pagination-active-bg: #ff6b00;
+    --bs-pagination-active-border-color: #ff6b00;
+}

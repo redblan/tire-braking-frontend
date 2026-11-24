@@ -5,8 +5,78 @@
     gap: 12px;
 }
 
+.tilesToolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .cardsList {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.tilesInfo {
+    font-size: 13px;
+    color: #666;
+}
+
+.tilesEmpty h1 {
+    font-size: 20px;
+}
+
+.tilesPagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0 12px;
+}
+
+/* поиск по изображению: настоящее поле выбора файла скрыто, его открывает кнопка */
+.imageSearch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.imageSearchInput {
+    display: none;
+}
+
+.imageSearchError {
+    color: #dc3545;
+}
+
+/* выбранное изображение и итог поиска */
+.searchSummary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 12px;
+}
+
+.searchPreview {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.searchSummaryText {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 13px;
+    min-width: 0;
+}
+
+.searchSummaryText b {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

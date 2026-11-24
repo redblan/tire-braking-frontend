@@ -1,0 +1,21 @@
+.addPage {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+}
+
+.addPreview {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.addModel {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    background: #111;
+    overflow: hidden;
+}

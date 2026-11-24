@@ -5,10 +5,24 @@
     background: #000;
 }
 
-.feedVideo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.feedModel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 150px;
+}
+
+.feedAngles {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 13px;
+    opacity: 0.85;
 }
 
 .feedOverlay {
@@ -45,12 +59,18 @@
     font-size: 12px;
 }
 
-.feedNextBtn {
+.feedButtons {
+    display: flex;
+    gap: 8px;
     margin-top: 16px;
-    width: 100%;
+}
+
+.feedNextBtn {
+    flex: 1;
 }
 
 .feedLoader {
+    color: #666;
     display: flex;
     justify-content: center;
     align-items: center;
