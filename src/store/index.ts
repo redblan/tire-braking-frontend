@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import authReducer from "./authSlice";
 import draftReducer from "./draftSlice";
 import feedReducer from "./feedSlice";
+import searchReducer from "./searchSlice";
 import tireConditionsReducer from "./tireConditionsSlice";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     tireConditions: tireConditionsReducer,
     feed: feedReducer,
     draft: draftReducer,
+    search: searchReducer,
   },
 });
 

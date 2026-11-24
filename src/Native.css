@@ -1,0 +1,460 @@
+/* Оформление нативного приложения Tauri (класс native на <html> ставится в main.tsx).
+   Веб-версия остаётся мобильной колонкой, здесь — раскладка на всё окно в духе macOS. */
+
+html.native {
+    --n-bg: #f5f5f7;
+    --n-surface: #ffffff;
+    --n-border: rgba(0, 0, 0, 0.09);
+    --n-text: #1d1d1f;
+    --n-muted: #6e6e73;
+    --n-accent: #ff6b00;
+    --n-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 6px 18px rgba(0, 0, 0, 0.05);
+    --n-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.06), 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+html.native[data-bs-theme="dark"] {
+    --n-bg: #1c1c1e;
+    --n-surface: #2c2c2e;
+    --n-border: rgba(255, 255, 255, 0.11);
+    --n-text: #f5f5f7;
+    --n-muted: #a1a1a6;
+    --n-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --n-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.55);
+}
+
+html.native body {
+    background: var(--n-bg);
+    color: var(--n-text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    /* как в обычном приложении: текст интерфейса не выделяется мышью, страница не «пружинит» */
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+    overflow: hidden;
+}
+
+/* окно: шапка сверху, под ней прокручивается только содержимое */
+html.native .appShell {
+    max-width: none;
+    height: 100vh;
+    min-height: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+html.native .appContent {
+    padding-bottom: 0;
+}
+
+html.native .appLoader {
+    left: 0;
+    transform: none;
+    max-width: none;
+    background: rgba(0, 0, 0, 0.18);
+}
+
+/* шапка: название приложения и адрес веб-сервиса в локальной сети */
+.nativeHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 24px;
+    background: var(--n-surface);
+    border-bottom: 1px solid var(--n-border);
+}
+
+.nativeBrand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    min-width: 0;
+}
+
+/* знак приложения: шина — оранжевое кольцо */
+.nativeLogo {
+    align-self: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 6px solid var(--n-accent);
+    flex-shrink: 0;
+}
+
+.nativeTitle {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.nativeSubtitle {
+    font-size: 13px;
+    color: var(--n-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nativeServer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border: 1px solid var(--n-border);
+    border-radius: 999px;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--n-muted);
+    white-space: nowrap;
+}
+
+.nativeServerDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #34c759;
+}
+
+/* ---------- список услуг ---------- */
+
+html.native .container {
+    max-width: none;
+    padding: 0 24px 24px;
+    gap: 16px;
+}
+
+/* панель фильтра и поиска остаётся на месте при прокрутке */
+html.native .tilesToolbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0 -24px;
+    padding: 14px 24px;
+    background: color-mix(in srgb, var(--n-bg) 86%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(180%) blur(18px);
+    border-bottom: 1px solid var(--n-border);
+}
+
+/* фильтр в одну строку: подпись, ползунок, кнопка */
+html.native .gripSlider {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+}
+
+html.native .gripSliderLabel {
+    color: var(--n-muted);
+    white-space: nowrap;
+}
+
+html.native .gripSliderLabel b {
+    display: inline-block;
+    min-width: 34px;
+    color: var(--n-text);
+}
+
+html.native .gripSliderInput {
+    width: 200px;
+}
+
+html.native .btn {
+    --bs-btn-font-size: 14px;
+    --bs-btn-padding-y: 6px;
+    --bs-btn-padding-x: 14px;
+    --bs-btn-border-radius: 8px;
+    font-weight: 500;
+    cursor: default;
+}
+
+html.native .btn-outline-secondary {
+    --bs-btn-color: var(--n-text);
+    --bs-btn-border-color: var(--n-border);
+    --bs-btn-bg: var(--n-surface);
+    --bs-btn-hover-color: var(--n-text);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--n-text) 6%, var(--n-surface));
+    --bs-btn-hover-border-color: var(--n-border);
+    --bs-btn-active-color: var(--n-text);
+    --bs-btn-active-bg: color-mix(in srgb, var(--n-text) 12%, var(--n-surface));
+    --bs-btn-active-border-color: var(--n-border);
+    --bs-btn-disabled-color: var(--n-muted);
+    --bs-btn-disabled-border-color: var(--n-border);
+}
+
+html.native .btn-link {
+    --bs-btn-color: var(--n-accent);
+    --bs-btn-hover-color: var(--n-accent);
+    --bs-btn-active-color: var(--n-accent);
+    text-decoration: none;
+}
+
+html.native .tilesInfo {
+    color: var(--n-muted);
+}
+
+html.native .tilesEmpty {
+    padding: 64px 0;
+    text-align: center;
+    color: var(--n-muted);
+}
+
+html.native .tilesEmpty h1 {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+/* сетка карточек: столько колонок, сколько помещается в окно */
+html.native .cardsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+html.native .tireCard {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--n-border);
+    border-radius: 14px;
+    background: var(--n-surface);
+    color: var(--n-text);
+    box-shadow: var(--n-shadow);
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+html.native .tireCard:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--n-shadow-hover);
+}
+
+html.native .tireCard:active {
+    transform: translateY(-1px);
+}
+
+html.native .cardImageWrap {
+    display: block;
+    aspect-ratio: 16 / 10;
+    background: color-mix(in srgb, var(--n-text) 6%, var(--n-surface));
+}
+
+html.native .cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+html.native .tireCard .card-body {
+    padding: 14px 16px 16px;
+}
+
+html.native .cardTitle {
+    height: auto;
+    min-height: 40px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+html.native .cardChips {
+    margin-bottom: 0;
+}
+
+html.native .cardChip {
+    font-size: 12px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+html.native[data-bs-theme="dark"] .cardChip-low {
+    color: #ff6b6b;
+}
+
+html.native[data-bs-theme="dark"] .cardChip-medium {
+    color: #ffb340;
+}
+
+html.native[data-bs-theme="dark"] .cardChip-high {
+    color: #4cd964;
+}
+
+html.native .cardScore {
+    margin: 12px 0 0;
+}
+
+html.native .cardScoreDescription {
+    color: var(--n-muted);
+}
+
+/* выбранное фото и итог поиска */
+html.native .searchSummary {
+    padding: 12px;
+    gap: 14px;
+    border-color: var(--n-border);
+    border-radius: 14px;
+    background: var(--n-surface);
+    box-shadow: var(--n-shadow);
+}
+
+html.native .searchPreview {
+    width: 96px;
+    height: 72px;
+    border-radius: 10px;
+}
+
+html.native .searchSummaryText {
+    color: var(--n-muted);
+}
+
+html.native .searchSummaryText b {
+    font-size: 14px;
+    color: var(--n-text);
+}
+
+html.native .tilesPagination {
+    padding: 8px 0 0;
+}
+
+html.native .tilesPager {
+    --bs-pagination-color: var(--n-text);
+    --bs-pagination-bg: var(--n-surface);
+    --bs-pagination-border-color: var(--n-border);
+    --bs-pagination-hover-color: var(--n-text);
+    --bs-pagination-hover-bg: color-mix(in srgb, var(--n-text) 7%, var(--n-surface));
+    --bs-pagination-hover-border-color: var(--n-border);
+    --bs-pagination-focus-color: var(--n-text);
+    --bs-pagination-focus-bg: var(--n-surface);
+    --bs-pagination-focus-box-shadow: none;
+    --bs-pagination-disabled-color: var(--n-muted);
+    --bs-pagination-disabled-bg: var(--n-surface);
+    --bs-pagination-disabled-border-color: var(--n-border);
+    --bs-pagination-font-size: 14px;
+    --bs-pagination-padding-x: 10px;
+    --bs-pagination-padding-y: 6px;
+    gap: 8px;
+}
+
+html.native .tilesPager .page-link {
+    min-width: 38px;
+    border-radius: 10px !important;
+    font-weight: 500;
+    cursor: default;
+    box-shadow: var(--n-shadow);
+    transition: background-color 0.12s ease;
+}
+
+html.native .tilesPager .page-item.active .page-link {
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--n-accent) 40%, transparent);
+}
+
+html.native .tilesPager .tilesPagerGap .page-link {
+    box-shadow: none;
+}
+
+/* ---------- «Подробнее»: картинка слева, сведения справа ---------- */
+
+html.native .detailPage {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+html.native .detailImage {
+    flex: 0 0 48%;
+    width: 48%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    box-shadow: var(--n-shadow);
+}
+
+html.native .detailBody {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    gap: 14px;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.detailBack {
+    align-self: flex-start;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 14px;
+    color: var(--n-accent);
+}
+
+.detailBack:hover {
+    opacity: 0.75;
+}
+
+html.native .detailTitle {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+}
+
+html.native .detailDescription {
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+html.native .detailDescriptionEn {
+    margin: 0;
+    color: var(--n-muted);
+}
+
+html.native .detailField {
+    padding: 12px 16px;
+    border-color: var(--n-border);
+    border-radius: 12px;
+    background: var(--n-surface);
+    font-variant-numeric: tabular-nums;
+}
+
+html.native .detailField span {
+    color: var(--n-muted);
+}
+
+html.native .detailLoader {
+    height: 60vh;
+    color: var(--n-muted);
+}
+
+/* узкое окно: «Подробнее» складывается в одну колонку */
+@media (max-width: 720px) {
+    html.native .detailPage {
+        flex-direction: column;
+    }
+
+    html.native .detailImage {
+        flex: none;
+        width: 100%;
+    }
+
+    .nativeSubtitle {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.native .tireCard {
+        transition: none;
+    }
+}
